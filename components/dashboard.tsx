@@ -199,7 +199,11 @@ export function Dashboard() {
       <header className="border-b border-white/[0.07] bg-ink/75 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
-            <span className="grid h-10 w-10 place-items-center rounded-xl bg-lime text-ink shadow-glow"><RouteIcon className="h-6 w-6" /></span>
+            <img
+              src="/rota-lucro-icon.png"
+              alt="Logo Rota Lucro"
+              className="h-10 w-10 rounded-xl object-cover shadow-glow"
+            />
             <div>
               <p className="text-lg font-bold leading-tight tracking-tight">Rota Lucro</p>
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">Seu corre, seus números</p>
@@ -329,7 +333,7 @@ function ChartLegend({ color, label, value }: { color: string; label: string; va
 }
 
 function InputField({ label, value, onChange, placeholder, prefix, suffix, type = "text", className = "" }: { label: string; value: string; onChange: (value: string) => void; placeholder?: string; prefix?: string; suffix?: string; type?: string; className?: string }) {
-  return <label className={className}><span className="mb-2 block text-xs font-semibold text-white/55">{label}</span><div className="relative">{prefix && <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm font-semibold text-white/30">{prefix}</span>}<input className={`field text-sm ${prefix ? "pl-10" : ""} ${suffix ? "pr-14" : ""}`} type={type} inputMode={type === "text" ? "decimal" : undefined} placeholder={placeholder} value={value} onChange={(event) => onChange(event.target.value)} required />{suffix && <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-semibold text-white/30">{suffix}</span>}</div></label>;
+  return <label className={className}><span className="mb-2 block text-xs font-semibold text-white/55">{label}</span><div className="relative">{prefix && <span className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-sm font-semibold text-white/35">{prefix}</span>}<input className="field text-sm" style={{ paddingLeft: prefix ? "3.25rem" : undefined, paddingRight: suffix ? "4rem" : undefined }} type={type} inputMode={type === "text" ? "decimal" : undefined} placeholder={placeholder} value={value} onChange={(event) => onChange(event.target.value)} required />{suffix && <span className="pointer-events-none absolute right-4 top-1/2 z-10 -translate-y-1/2 text-xs font-semibold text-white/35">{suffix}</span>}</div></label>;
 }
 
 function EntryRow({ entry, onDelete }: { entry: DailyEntry; onDelete: () => void }) {
