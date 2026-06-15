@@ -71,8 +71,9 @@ export function Dashboard() {
         return;
       }
 
-      const { data } = await supabase.auth.getSession();
+      const { data, error } = await supabase.auth.getSession();
       if (!active) return;
+      if (error) showToast("Não foi possível restaurar seu login.");
       setSession(data.session);
       if (data.session) await loadRemoteEntries(data.session.user.id);
       else setEntries(readLocalEntries());
@@ -220,8 +221,8 @@ export function Dashboard() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8">
-        <section className="mb-7 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+      <div className="mx-auto flex max-w-7xl flex-col px-4 pt-4 sm:px-6 lg:px-8 lg:pt-8">
+        <section className="order-2 mb-7 hidden flex-col justify-between gap-5 lg:order-1 lg:flex lg:flex-row lg:items-end">
           <div className="animate-enter">
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-lime">Visão geral</p>
             <h1 className="max-w-2xl text-3xl font-bold tracking-[-0.04em] sm:text-4xl">Quanto o seu dia realmente rendeu?</h1>
@@ -233,7 +234,7 @@ export function Dashboard() {
           </label>
         </section>
 
-        <section className="grid gap-4 lg:grid-cols-[1.45fr_0.8fr]">
+        <section className="order-3 mt-4 grid gap-4 lg:order-2 lg:mt-0 lg:grid-cols-[1.45fr_0.8fr]">
           <div className="grid gap-4 sm:grid-cols-2">
             <article className="card relative overflow-hidden rounded-3xl p-6 sm:col-span-2 sm:p-7">
               <div className="absolute -right-12 -top-16 h-52 w-52 rounded-full bg-lime/10 blur-3xl" />
@@ -277,7 +278,7 @@ export function Dashboard() {
           </article>
         </section>
 
-        <section className="mt-4 grid items-start gap-4 lg:grid-cols-[0.85fr_1.4fr]">
+        <section className="order-1 grid items-start gap-4 lg:order-3 lg:mt-4 lg:grid-cols-[0.85fr_1.4fr]">
           <form onSubmit={submitEntry} className="card rounded-3xl p-5 sm:p-7 lg:sticky lg:top-5">
             <div className="mb-6 flex items-center justify-between">
               <div><p className="text-lg font-bold">Registrar um dia</p><p className="mt-1 text-xs text-white/35">Preencha os dados da sua jornada</p></div>
@@ -302,8 +303,12 @@ export function Dashboard() {
           </form>
 
           <article className="card overflow-hidden rounded-3xl">
-            <div className="flex items-center justify-between border-b border-white/[0.07] px-5 py-5 sm:px-7">
+            <div className="flex items-center justify-between gap-4 border-b border-white/[0.07] px-5 py-5 sm:px-7">
               <div><p className="text-lg font-bold">Relatório diário</p><p className="mt-1 text-xs text-white/35">{monthLabel(selectedMonth)} · {monthEntries.length} lançamentos</p></div>
+              <label className="w-36 shrink-0 lg:hidden">
+                <span className="sr-only">Mês do relatório</span>
+                <input className="field px-3 py-2 text-xs font-semibold" type="month" value={selectedMonth} onChange={(event) => setSelectedMonth(event.target.value)} />
+              </label>
             </div>
             {loading ? (
               <div className="grid min-h-72 place-items-center text-sm text-white/35">Carregando seus números...</div>
