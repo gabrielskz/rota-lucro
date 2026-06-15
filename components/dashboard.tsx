@@ -293,7 +293,7 @@ export function Dashboard() {
               <span className="grid h-10 w-10 place-items-center rounded-xl bg-lime/10 text-lime"><PlusIcon className="h-5 w-5" /></span>
             </div>
             <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-              <InputField label="Data" type="date" value={form.entryDate} onChange={(value) => setForm({ ...form, entryDate: value })} />
+              <InputField label="Data" type="date" value={form.entryDate} onChange={(value) => setForm({ ...form, entryDate: value })} className="mx-auto w-full max-w-[220px] sm:max-w-none" labelClassName="text-center sm:text-left" />
               <InputField label="Valor bruto" prefix="R$" placeholder="350,00" value={form.grossRevenue} onChange={(value) => setForm({ ...form, grossRevenue: value })} />
               <InputField label="Km rodados" suffix="km" placeholder="180" value={form.kilometers} onChange={(value) => setForm({ ...form, kilometers: value })} />
               <InputField label="Média do carro" suffix="km/L" placeholder="10" value={form.fuelEfficiency} onChange={(value) => setForm({ ...form, fuelEfficiency: value })} />
@@ -345,8 +345,8 @@ function ChartLegend({ color, label, value }: { color: string; label: string; va
   return <div className="rounded-xl bg-white/[0.035] p-3"><div className="flex items-center gap-2 text-[11px] text-white/40"><span className={`h-2 w-2 rounded-full ${color}`} />{label}</div><p className="mt-1.5 text-lg font-bold">{value.toFixed(0)}%</p></div>;
 }
 
-function InputField({ label, value, onChange, placeholder, prefix, suffix, type = "text", className = "" }: { label: string; value: string; onChange: (value: string) => void; placeholder?: string; prefix?: string; suffix?: string; type?: string; className?: string }) {
-  return <label className={`min-w-0 ${className}`}><span className="mb-2 block text-xs font-semibold text-white/55">{label}</span><div className="relative min-w-0">{prefix && <span className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-sm font-semibold text-white/35">{prefix}</span>}<input className="field min-w-0 text-sm" style={{ paddingLeft: prefix ? "3.25rem" : undefined, paddingRight: suffix ? "4rem" : undefined }} type={type} inputMode={type === "text" ? "decimal" : undefined} placeholder={placeholder} value={value} onChange={(event) => onChange(event.target.value)} required />{suffix && <span className="pointer-events-none absolute right-4 top-1/2 z-10 -translate-y-1/2 text-xs font-semibold text-white/35">{suffix}</span>}</div></label>;
+function InputField({ label, value, onChange, placeholder, prefix, suffix, type = "text", className = "", labelClassName = "" }: { label: string; value: string; onChange: (value: string) => void; placeholder?: string; prefix?: string; suffix?: string; type?: string; className?: string; labelClassName?: string }) {
+  return <label className={`min-w-0 ${className}`}><span className={`mb-2 block text-xs font-semibold text-white/55 ${labelClassName}`}>{label}</span><div className="relative min-w-0">{prefix && <span className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-sm font-semibold text-white/35">{prefix}</span>}<input className="field min-w-0 text-sm" style={{ paddingLeft: prefix ? "3.25rem" : undefined, paddingRight: suffix ? "4rem" : undefined }} type={type} inputMode={type === "text" ? "decimal" : undefined} placeholder={placeholder} value={value} onChange={(event) => onChange(event.target.value)} required />{suffix && <span className="pointer-events-none absolute right-4 top-1/2 z-10 -translate-y-1/2 text-xs font-semibold text-white/35">{suffix}</span>}</div></label>;
 }
 
 function EntryRow({ entry, onDelete }: { entry: DailyEntry; onDelete: () => void }) {
