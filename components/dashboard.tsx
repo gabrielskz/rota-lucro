@@ -199,28 +199,29 @@ export function Dashboard() {
   return (
     <main className="min-h-screen pb-14">
       <header className="border-b border-white/[0.07] bg-ink/75 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-3 py-3 sm:px-6 sm:py-4 lg:px-8">
+          <div className="flex min-w-0 items-center gap-2.5 sm:gap-3">
             <img
               src="/rota-lucro-icon.png"
               alt="Logo Rota Lucro"
-              className="h-10 w-10 rounded-xl object-cover shadow-glow"
+              className="h-9 w-9 shrink-0 rounded-xl object-cover shadow-glow sm:h-10 sm:w-10"
             />
-            <div>
-              <p className="text-lg font-bold leading-tight tracking-tight">Rota Lucro</p>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">Seu corre, seus números</p>
+            <div className="min-w-0">
+              <p className="truncate text-base font-bold leading-tight tracking-tight sm:text-lg">Rota Lucro</p>
+              <p className="hidden truncate text-[10px] font-semibold uppercase tracking-[0.14em] text-white/40 min-[430px]:block sm:text-[11px] sm:tracking-[0.18em]">Seu corre, seus números</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <Link href="/relatorios" className="flex items-center gap-2 rounded-xl border border-lime/20 bg-lime/[0.07] px-3 py-2.5 text-sm font-semibold text-lime transition hover:bg-lime/[0.12]">
+          <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+            <Link href="/relatorios" aria-label="Abrir relatórios" className="flex h-10 w-10 items-center justify-center rounded-xl border border-lime/20 bg-lime/[0.07] text-sm font-semibold text-lime transition hover:bg-lime/[0.12] sm:h-auto sm:w-auto sm:gap-2 sm:px-3 sm:py-2.5">
               <ChartIcon className="h-4 w-4" />
               <span className="hidden sm:inline">Relatórios</span>
             </Link>
             <button
               onClick={session ? signOut : () => setAuthOpen(true)}
-              className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/20 hover:bg-white/[0.07]"
+              aria-label={session ? "Sair da conta" : "Entrar na conta"}
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-sm font-semibold text-white/80 transition hover:border-white/20 hover:bg-white/[0.07] sm:h-auto sm:w-auto sm:gap-2 sm:px-3 sm:py-2.5"
             >
-              <span className={`h-2 w-2 rounded-full ${session ? "bg-lime" : "bg-amber-400"}`} />
+              <span className={`hidden h-2 w-2 rounded-full sm:block ${session ? "bg-lime" : "bg-amber-400"}`} />
               <span className="hidden sm:inline">{session ? session.user.email : isSupabaseConfigured ? "Entrar" : "Modo local"}</span>
               <LogInIcon className="h-4 w-4 sm:hidden" />
             </button>
@@ -228,7 +229,7 @@ export function Dashboard() {
         </div>
       </header>
 
-      <div className="mx-auto flex max-w-7xl flex-col px-4 pt-4 sm:px-6 lg:px-8 lg:pt-8">
+      <div className="mx-auto flex w-full min-w-0 max-w-7xl flex-col overflow-x-clip px-3 pt-3 sm:px-6 sm:pt-4 lg:px-8 lg:pt-8">
         <section className="order-2 mb-7 hidden flex-col justify-between gap-5 lg:order-1 lg:flex lg:flex-row lg:items-end">
           <div className="animate-enter">
             <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-lime">Visão geral</p>
@@ -241,8 +242,8 @@ export function Dashboard() {
           </label>
         </section>
 
-        <section className="order-3 mt-4 grid gap-4 lg:order-2 lg:mt-0 lg:grid-cols-[1.45fr_0.8fr]">
-          <div className="grid gap-4 sm:grid-cols-2">
+        <section className="order-3 mt-4 grid min-w-0 gap-4 lg:order-2 lg:mt-0 lg:grid-cols-[1.45fr_0.8fr]">
+          <div className="grid min-w-0 gap-4 sm:grid-cols-2">
             <article className="card relative overflow-hidden rounded-3xl p-6 sm:col-span-2 sm:p-7">
               <div className="absolute -right-12 -top-16 h-52 w-52 rounded-full bg-lime/10 blur-3xl" />
               <div className="relative flex items-start justify-between gap-4">
@@ -285,23 +286,23 @@ export function Dashboard() {
           </article>
         </section>
 
-        <section className="order-1 grid items-start gap-4 lg:order-3 lg:mt-4 lg:grid-cols-[0.85fr_1.4fr]">
-          <form onSubmit={submitEntry} className="card rounded-3xl p-5 sm:p-7 lg:sticky lg:top-5">
+        <section className="order-1 grid min-w-0 items-start gap-4 lg:order-3 lg:mt-4 lg:grid-cols-[0.85fr_1.4fr]">
+          <form onSubmit={submitEntry} className="card w-full min-w-0 max-w-full overflow-hidden rounded-3xl p-4 sm:p-7 lg:sticky lg:top-5">
             <div className="mb-6 flex items-center justify-between">
               <div><p className="text-lg font-bold">Registrar um dia</p><p className="mt-1 text-xs text-white/35">Preencha os dados da sua jornada</p></div>
               <span className="grid h-10 w-10 place-items-center rounded-xl bg-lime/10 text-lime"><PlusIcon className="h-5 w-5" /></span>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+            <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
               <InputField label="Data" type="date" value={form.entryDate} onChange={(value) => setForm({ ...form, entryDate: value })} />
               <InputField label="Valor bruto" prefix="R$" placeholder="350,00" value={form.grossRevenue} onChange={(value) => setForm({ ...form, grossRevenue: value })} />
               <InputField label="Km rodados" suffix="km" placeholder="180" value={form.kilometers} onChange={(value) => setForm({ ...form, kilometers: value })} />
               <InputField label="Média do carro" suffix="km/L" placeholder="10" value={form.fuelEfficiency} onChange={(value) => setForm({ ...form, fuelEfficiency: value })} />
               <InputField label="Preço da gasolina" prefix="R$" placeholder="5,89" value={form.fuelPrice} onChange={(value) => setForm({ ...form, fuelPrice: value })} className="sm:col-span-2 lg:col-span-1 xl:col-span-2" />
             </div>
-            <div className="my-5 rounded-2xl border border-lime/15 bg-lime/[0.055] p-4">
-              <div className="flex items-center justify-between text-sm"><span className="text-white/45">Combustível ({number.format(preview.liters)} L)</span><strong className="text-[#ffad7a]">− {money.format(preview.fuel)}</strong></div>
+            <div className="my-5 min-w-0 rounded-2xl border border-lime/15 bg-lime/[0.055] p-4">
+              <div className="flex min-w-0 items-center justify-between gap-3 text-sm"><span className="min-w-0 truncate text-white/45">Combustível ({number.format(preview.liters)} L)</span><strong className="shrink-0 whitespace-nowrap text-[#ffad7a]">− {money.format(preview.fuel)}</strong></div>
               <div className="my-3 h-px bg-white/[0.07]" />
-              <div className="flex items-center justify-between"><span className="font-semibold">Lucro estimado</span><strong className={`text-xl ${preview.profit < 0 ? "text-red-400" : "text-lime"}`}>{money.format(preview.profit)}</strong></div>
+              <div className="flex min-w-0 items-center justify-between gap-3"><span className="min-w-0 truncate font-semibold">Lucro estimado</span><strong className={`shrink-0 whitespace-nowrap text-lg sm:text-xl ${preview.profit < 0 ? "text-red-400" : "text-lime"}`}>{money.format(preview.profit)}</strong></div>
             </div>
             <button disabled={saving} className="flex w-full items-center justify-center gap-2 rounded-2xl bg-lime px-4 py-4 text-sm font-bold text-ink transition hover:bg-[#d7fa5a] disabled:cursor-wait disabled:opacity-60">
               {saving ? "Salvando..." : "Salvar no relatório"}<ChevronIcon className="h-4 w-4" />

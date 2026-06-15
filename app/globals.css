@@ -18,11 +18,14 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at 88% 2%, rgba(200, 241, 53, 0.09), transparent 24rem),
     radial-gradient(circle at 4% 38%, rgba(76, 124, 246, 0.06), transparent 28rem),
@@ -70,7 +73,10 @@ input[type="month"]::-webkit-date-and-time-value {
 }
 
 .field {
+  display: block;
   width: 100%;
+  min-width: 0;
+  max-width: 100%;
   border: 1px solid var(--line);
   border-radius: 0.9rem;
   background: rgba(255, 255, 255, 0.045);
