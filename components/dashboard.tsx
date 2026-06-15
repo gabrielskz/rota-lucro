@@ -2,10 +2,11 @@
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
+import Link from "next/link";
 import { calculateFuelCost, parseDecimal, roundMoney, summarize } from "@/lib/calculations";
 import { isSupabaseConfigured, supabase } from "@/lib/supabase";
 import type { DailyEntry, EntryForm } from "@/lib/types";
-import { CheckIcon, ChevronIcon, FuelIcon, LogInIcon, PlusIcon, RoadIcon, RouteIcon, TrashIcon, WalletIcon, XIcon } from "./icons";
+import { ChartIcon, CheckIcon, ChevronIcon, FuelIcon, LogInIcon, PlusIcon, RoadIcon, RouteIcon, TrashIcon, WalletIcon, XIcon } from "./icons";
 
 const STORAGE_KEY = "rota-lucro-entries";
 
@@ -210,14 +211,20 @@ export function Dashboard() {
               <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/40">Seu corre, seus números</p>
             </div>
           </div>
-          <button
-            onClick={session ? signOut : () => setAuthOpen(true)}
-            className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3.5 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/20 hover:bg-white/[0.07]"
-          >
-            <span className={`h-2 w-2 rounded-full ${session ? "bg-lime" : "bg-amber-400"}`} />
-            <span className="hidden sm:inline">{session ? session.user.email : isSupabaseConfigured ? "Entrar" : "Modo local"}</span>
-            <LogInIcon className="h-4 w-4 sm:hidden" />
-          </button>
+          <div className="flex items-center gap-2">
+            <Link href="/relatorios" className="flex items-center gap-2 rounded-xl border border-lime/20 bg-lime/[0.07] px-3 py-2.5 text-sm font-semibold text-lime transition hover:bg-lime/[0.12]">
+              <ChartIcon className="h-4 w-4" />
+              <span className="hidden sm:inline">Relatórios</span>
+            </Link>
+            <button
+              onClick={session ? signOut : () => setAuthOpen(true)}
+              className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2.5 text-sm font-semibold text-white/80 transition hover:border-white/20 hover:bg-white/[0.07]"
+            >
+              <span className={`h-2 w-2 rounded-full ${session ? "bg-lime" : "bg-amber-400"}`} />
+              <span className="hidden sm:inline">{session ? session.user.email : isSupabaseConfigured ? "Entrar" : "Modo local"}</span>
+              <LogInIcon className="h-4 w-4 sm:hidden" />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -338,7 +345,7 @@ function ChartLegend({ color, label, value }: { color: string; label: string; va
 }
 
 function InputField({ label, value, onChange, placeholder, prefix, suffix, type = "text", className = "" }: { label: string; value: string; onChange: (value: string) => void; placeholder?: string; prefix?: string; suffix?: string; type?: string; className?: string }) {
-  return <label className={className}><span className="mb-2 block text-xs font-semibold text-white/55">{label}</span><div className="relative">{prefix && <span className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-sm font-semibold text-white/35">{prefix}</span>}<input className="field text-sm" style={{ paddingLeft: prefix ? "3.25rem" : undefined, paddingRight: suffix ? "4rem" : undefined }} type={type} inputMode={type === "text" ? "decimal" : undefined} placeholder={placeholder} value={value} onChange={(event) => onChange(event.target.value)} required />{suffix && <span className="pointer-events-none absolute right-4 top-1/2 z-10 -translate-y-1/2 text-xs font-semibold text-white/35">{suffix}</span>}</div></label>;
+  return <label className={`min-w-0 ${className}`}><span className="mb-2 block text-xs font-semibold text-white/55">{label}</span><div className="relative min-w-0">{prefix && <span className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-sm font-semibold text-white/35">{prefix}</span>}<input className="field min-w-0 text-sm" style={{ paddingLeft: prefix ? "3.25rem" : undefined, paddingRight: suffix ? "4rem" : undefined }} type={type} inputMode={type === "text" ? "decimal" : undefined} placeholder={placeholder} value={value} onChange={(event) => onChange(event.target.value)} required />{suffix && <span className="pointer-events-none absolute right-4 top-1/2 z-10 -translate-y-1/2 text-xs font-semibold text-white/35">{suffix}</span>}</div></label>;
 }
 
 function EntryRow({ entry, onDelete }: { entry: DailyEntry; onDelete: () => void }) {

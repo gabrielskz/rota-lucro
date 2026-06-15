@@ -49,3 +49,11 @@ export function CheckIcon(props: IconProps) {
 export function ChevronIcon(props: IconProps) {
   return <BaseIcon {...props}><path d="m9 18 6-6-6-6"/></BaseIcon>;
 }
+
+export function ChartIcon(props: IconProps) {
+  return <BaseIcon {...props}><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></BaseIcon>;
+}
+
+export function HomeIcon(props: IconProps) {
+  return <BaseIcon {...props}><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10M9 20v-6h6v6"/></BaseIcon>;
+}
