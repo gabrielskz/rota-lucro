@@ -346,6 +346,13 @@ function ChartLegend({ color, label, value }: { color: string; label: string; va
 }
 
 function InputField({ label, value, onChange, placeholder, prefix, suffix, type = "text", className = "" }: { label: string; value: string; onChange: (value: string) => void; placeholder?: string; prefix?: string; suffix?: string; type?: string; className?: string }) {
+  if (type === "date") {
+    const [year, month, day] = value.split("-");
+    const formattedDate = year && month && day ? `${day}/${month}/${year}` : "Selecione a data";
+
+    return <label className={`min-w-0 ${className}`}><span className="mb-2 block text-xs font-semibold text-white/55">{label}</span><div className="relative min-w-0"><div className="field flex h-12 items-center text-sm"><span>{formattedDate}</span></div><input className="date-picker-input absolute inset-0 z-10 h-full w-full cursor-pointer opacity-0" type="date" value={value} onChange={(event) => onChange(event.target.value)} aria-label={label} required /></div></label>;
+  }
+
   return <label className={`min-w-0 ${className}`}><span className="mb-2 block text-xs font-semibold text-white/55">{label}</span><div className="relative min-w-0">{prefix && <span className="pointer-events-none absolute left-4 top-1/2 z-10 -translate-y-1/2 text-sm font-semibold text-white/35">{prefix}</span>}<input className="field min-w-0 text-sm" style={{ paddingLeft: prefix ? "3.25rem" : undefined, paddingRight: suffix ? "4rem" : undefined }} type={type} inputMode={type === "text" ? "decimal" : undefined} placeholder={placeholder} value={value} onChange={(event) => onChange(event.target.value)} required />{suffix && <span className="pointer-events-none absolute right-4 top-1/2 z-10 -translate-y-1/2 text-xs font-semibold text-white/35">{suffix}</span>}</div></label>;
 }
 
